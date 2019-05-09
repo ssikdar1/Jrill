@@ -1,17 +1,22 @@
-using HTTP;
 
+using HTTP
+using BufferedStreams
+import JSON
 
-#  TODO make a connection class
+# TODO make a connection class
+# TODO organize repo into a module structure
 # with different functions
 # TODO HTTPS
 # TODO <IP address or host name>
 # TODO actual query 
 # TODO results to Dataframe
+# TODO is this slow?
 
 function drill_options()
-    r = HTTP.request("GET", "http://localhost:8047/options.json";)
-    println(r.status)
-    println(String(r.body))
+    HTTP.open("GET", "http://192.168.0.20:8047/options.json") do http
+       io = BufferedInputStream(http)
+       println(JSON.parse(io))
+    end	
 end
 
 
