@@ -1,7 +1,6 @@
 
 using HTTP
 using BufferedStreams
-using Parameters
 import JSON
 
 
@@ -14,10 +13,10 @@ import JSON
 # TODO results to Dataframe
 # TODO is this slow?
 
-@with_kw struct DrillConnection
+struct DrillConnection
    host::String
    port::Int
-   ssl::Bool = false
+   ssl::Bool
 end
 
 
@@ -35,8 +34,8 @@ function drill_options(conn::DrillConnection)
 end
 
 
-function drill_connection(host::String, port::Integer)
-    return DrillConnection(host=host,port=port)
+function drill_connection(host::String, port::Integer; ssl::Bool=false)
+    return DrillConnection(host,port, ssl)
 end
 
 println("hello world")
