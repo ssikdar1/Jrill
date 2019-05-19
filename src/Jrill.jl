@@ -1,3 +1,4 @@
+module Jrill
 
 using HTTP
 using BufferedStreams
@@ -166,18 +167,20 @@ function drill_connection(host::String, port::Integer; ssl::Bool=false)
     return DrillConnection(host,port, ssl)
 end
 
-# Test block #
-println("hello world")
+## Test block #
+#println("hello world")
+#
+#drill_conn = drill_connection("192.168.0.20", 8047) 
+#println(drill_conn)
+#println(make_url(drill_conn))
+##r = drill_options(drill_conn)
+##println(typeof(r))
+##println(drill_threads(drill_conn))
+##println(drill_metrics(drill_conn))
+## TODO timeout
+##"http://192.168.0.20:8047/options.json"
+#query = "SELECT * FROM sys.version"
+#ret = drill_query(drill_conn, query)
+#println(ret)
 
-drill_conn = drill_connection("192.168.0.20", 8047) 
-println(drill_conn)
-println(make_url(drill_conn))
-#r = drill_options(drill_conn)
-#println(typeof(r))
-#println(drill_threads(drill_conn))
-#println(drill_metrics(drill_conn))
-# TODO timeout
-#"http://192.168.0.20:8047/options.json"
-query = "SELECT * FROM sys.version"
-ret = drill_query(drill_conn, query)
-println(ret)
+end # module
