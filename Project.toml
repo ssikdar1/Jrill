@@ -2,3 +2,19 @@ name = "Jrill"
 uuid = "b81ca0d6-7a71-11e9-3f40-cf0bfccb09cf"
 authors = ["ssikdar1"]
 version = "0.1.0"
+license = "MIT"
+repository = "https://github.com/ssikdar1/Jrill.git"
+keywords = "apache drill"
+
+[deps]
+HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
+BufferedStreams = "e1450e63-4bb3-523b-b2a4-4ffa8c0fd77d"
+JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+
+[compat]
+HTTP = "0.8.0"
+BufferedStreams = "1.0.0"
+DataFrames = "0.18.2"
+JSON = "0.20.0"
+
