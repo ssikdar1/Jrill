@@ -1,6 +1,15 @@
 
+
+clean:
+	find . -name \*~ -delete	
+	find . -name \*.swp -delete	
+
+
 build:
 	docker build -t my_julia .
+
+build_dev:
+	docker build -f Dockerfile.dev -t my_julia .
 
 julia:
 	docker run -i -v ${CURDIR}:/home/Jrill -t my_julia /bin/bash

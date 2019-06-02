@@ -67,7 +67,20 @@ function drill_query(conn::DrillConnection, query::String; to_df::Bool=false, li
              response_stream=io)
     # TODO create Dataframe
     if to_df
-       println(JSON.parse(io))
+       df = DataFrame()
+       retval = JSON.parse(io)
+       for (index,row) in enumerate(retval["rows"])
+           if index == 1
+	       # Create dataframe defn
+	       for key in keys(row)
+                  df[Symbol(key)] = row[key]
+	       end
+	   else
+	       # push dict as new row
+	       push!(df, collect(values(row)))
+	   end
+       end
+       return df
     else
       return JSON.parse(io)
     end
@@ -167,20 +180,14 @@ function drill_connection(host::String, port::Integer; ssl::Bool=false)
     return DrillConnection(host,port, ssl)
 end
 
+
 ## Test block #
 #println("hello world")
-#
 #drill_conn = drill_connection("192.168.0.20", 8047) 
-#println(drill_conn)
-#println(make_url(drill_conn))
-##r = drill_options(drill_conn)
-##println(typeof(r))
-##println(drill_threads(drill_conn))
-##println(drill_metrics(drill_conn))
-## TODO timeout
-##"http://192.168.0.20:8047/options.json"
 #query = "SELECT * FROM sys.version"
-#ret = drill_query(drill_conn, query)
+#query = "show databases"
+#query = "SELECT * FROM sys.profiles_json"
+#ret = drill_query(drill_conn, query, to_df=true)
 #println(ret)
 
 end # module
